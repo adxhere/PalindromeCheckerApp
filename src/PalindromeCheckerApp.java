@@ -1,63 +1,25 @@
-class Node {
-    char data;
-    Node next;
+public class UseCase9PalindromeCheckerApp {
 
-    Node(char data){
-        this.data = data;
-        this.next = null;
-    }
-}
+    static boolean checkPalindrome(String str, int start, int end){
 
-public class UseCase8PalindromeCheckerApp {
-
-    static Node head = null;
-
-    static void insert(char c){
-
-        Node newNode = new Node(c);
-
-        if(head == null){
-            head = newNode;
-            return;
+        if(start >= end){
+            return true;
         }
 
-        Node temp = head;
-
-        while(temp.next != null){
-            temp = temp.next;
+        if(str.charAt(start) != str.charAt(end)){
+            return false;
         }
 
-        temp.next = newNode;
-    }
-
-    static boolean isPalindrome(){
-
-        String original = "";
-        String reversed = "";
-
-        Node temp = head;
-
-        while(temp != null){
-            original += temp.data;
-            temp = temp.next;
-        }
-
-        for(int i = original.length()-1; i >=0; i--){
-            reversed += original.charAt(i);
-        }
-
-        return original.equals(reversed);
+        return checkPalindrome(str, start + 1, end - 1);
     }
 
     public static void main(String[] args) {
 
-        String word = "level";
+        String word = "madam";
 
-        for(char c : word.toCharArray()){
-            insert(c);
-        }
+        boolean result = checkPalindrome(word, 0, word.length()-1);
 
-        if(isPalindrome()){
+        if(result){
             System.out.println(word + " is a palindrome");
         }else{
             System.out.println(word + " is not a palindrome");
