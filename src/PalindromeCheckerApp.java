@@ -1,28 +1,21 @@
-public class UseCase9PalindromeCheckerApp {
-
-    static boolean checkPalindrome(String str, int start, int end){
-
-        if(start >= end){
-            return true;
-        }
-
-        if(str.charAt(start) != str.charAt(end)){
-            return false;
-        }
-
-        return checkPalindrome(str, start + 1, end - 1);
-    }
+public class UseCase10PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        String word = "madam";
+        String text = "A man a plan a canal Panama";
 
-        boolean result = checkPalindrome(word, 0, word.length()-1);
+        String normalized = text.replaceAll("\\s+","").toLowerCase();
 
-        if(result){
-            System.out.println(word + " is a palindrome");
+        String reversed = "";
+
+        for(int i = normalized.length()-1; i >= 0; i--){
+            reversed += normalized.charAt(i);
+        }
+
+        if(normalized.equals(reversed)){
+            System.out.println("Palindrome");
         }else{
-            System.out.println(word + " is not a palindrome");
+            System.out.println("Not Palindrome");
         }
 
     }
