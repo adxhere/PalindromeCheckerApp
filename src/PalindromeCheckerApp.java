@@ -1,77 +1,50 @@
-import java.util.Stack;
-import java.util.ArrayDeque;
-import java.util.Deque;
+public class UseCase13PalindromeCheckerApp {
 
-/* Strategy Interface */
-interface PalindromeStrategy {
-    boolean check(String word);
-}
-
-/* Stack Strategy */
-class StackStrategy implements PalindromeStrategy {
-
-    public boolean check(String word){
-
-        Stack<Character> stack = new Stack<>();
-
-        for(char c : word.toCharArray()){
-            stack.push(c);
-        }
+    static boolean reverseMethod(String word){
 
         String reversed = "";
 
-        while(!stack.isEmpty()){
-            reversed += stack.pop();
+        for(int i = word.length()-1; i >= 0; i--){
+            reversed += word.charAt(i);
         }
 
         return word.equals(reversed);
     }
-}
 
-/* Deque Strategy */
-class DequeStrategy implements PalindromeStrategy {
+    static boolean twoPointerMethod(String word){
 
-    public boolean check(String word){
+        int left = 0;
+        int right = word.length() - 1;
 
-        Deque<Character> deque = new ArrayDeque<>();
-
-        for(char c : word.toCharArray()){
-            deque.addLast(c);
-        }
-
-        while(deque.size() > 1){
-            if(deque.removeFirst() != deque.removeLast()){
+        while(left < right){
+            if(word.charAt(left) != word.charAt(right)){
                 return false;
             }
+            left++;
+            right--;
         }
 
         return true;
     }
-}
-
-/* Application */
-public class UseCase12PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        String word = "madam";
+        String word = "racecar";
 
-        PalindromeStrategy strategy;
+        long start1 = System.nanoTime();
+        boolean r1 = reverseMethod(word);
+        long end1 = System.nanoTime();
 
-        strategy = new StackStrategy();
+        long start2 = System.nanoTime();
+        boolean r2 = twoPointerMethod(word);
+        long end2 = System.nanoTime();
 
-        if(strategy.check(word)){
-            System.out.println("StackStrategy: Palindrome");
-        }else{
-            System.out.println("StackStrategy: Not Palindrome");
-        }
+        System.out.println("Reverse Method Result: " + r1);
+        System.out.println("Execution Time: " + (end1 - start1) + " ns");
 
-        strategy = new DequeStrategy();
+        System.out.println();
 
-        if(strategy.check(word)){
-            System.out.println("DequeStrategy: Palindrome");
-        }else{
-            System.out.println("DequeStrategy: Not Palindrome");
-        }
+        System.out.println("Two Pointer Method Result: " + r2);
+        System.out.println("Execution Time: " + (end2 - start2) + " ns");
     }
 }
