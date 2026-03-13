@@ -2,14 +2,27 @@ public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        String word = "level";
-        String reversed = "";
+        String word = "radar";
 
-        for(int i = word.length() - 1; i >= 0; i--){
-            reversed = reversed + word.charAt(i);
+        char[] arr = word.toCharArray();
+
+        int left = 0;
+        int right = arr.length - 1;
+
+        boolean isPalindrome = true;
+
+        while(left < right){
+
+            if(arr[left] != arr[right]){
+                isPalindrome = false;
+                break;
+            }
+
+            left++;
+            right--;
         }
 
-        if(word.equals(reversed)){
+        if(isPalindrome){
             System.out.println(word + " is a palindrome");
         }
         else{
@@ -17,7 +30,4 @@ public class PalindromeCheckerApp {
         }
 
     }
-
-}
-
 }
